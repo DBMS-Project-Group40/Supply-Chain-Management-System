@@ -22,6 +22,7 @@ rosters have following constraints.
 
 ● A driver should never be assigned to two consecutive Truck schedule and for assistant
 maximum consecutive turns is two
+
 ● Total work hours per driver should not exceed 40 hrs/week and for an assistant it’s 60
 hrs/week
 
@@ -32,7 +33,11 @@ The management of the company requires a comprehensive report system for monitor
 analytics of the platform as well. The reports include:
 
 ● Quarterly sales report for a given year
+
 ● Items with most orders
+
 ● Sales report categorized according to main cities and routes
+
 ● Working Hours of Drivers/ Driver Assistants and Used hours of Trucks
+
 ● Customer - order report 
