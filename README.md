@@ -27,6 +27,7 @@ maximum consecutive turns is two
 hrs/week
 
 
+
 Customers should place orders at least 7 days prior to the delivery date and customers should
 be able to select a route that his delivery address is located.
 The management of the company requires a comprehensive report system for monitoring and
