@@ -13,7 +13,8 @@ def product_list(request):
     if request.method == "GET":
         queryset = Product.objects.all()
         serializer = ProductSerializer(
-            queryset, many=True, context={"request": request}
+            queryset,
+            many=True,
         )
         return Response(serializer.data)
     elif request.method == "POST":
