@@ -86,7 +86,7 @@ WSGI_APPLICATION = "backend.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "store",
+        "NAME": "SupplyChainDB",
         "HOST": "localhost",
         "USER": "root",
         "PASSWORD": "molindu123",
