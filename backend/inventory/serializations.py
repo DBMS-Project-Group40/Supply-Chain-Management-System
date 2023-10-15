@@ -5,10 +5,10 @@ from .models import Product, Bill
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ["product_id", "product_name", "bill_id"]
+        fields = ["ProductID", "product_name"]
 
 
 class BillSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bill
-        fields = ["bill_id", "total_list_price"]
+        fields = ["BillID", "total_list_price"]
