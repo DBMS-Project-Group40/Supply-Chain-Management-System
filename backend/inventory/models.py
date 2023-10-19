@@ -1,9 +1,8 @@
-# inventory/models.py
-
 from django.db import models
 
 
 class Product(models.Model):
+    product_id = models.CharField(max_length=7, primary_key=True)
     product_name = models.CharField(max_length=255)
     train_capacity_consumption = models.PositiveIntegerField()
 
@@ -12,6 +11,7 @@ class Product(models.Model):
 
 
 class TrainSchedule(models.Model):
+    train_schedule_id = models.CharField(max_length=7, primary_key=True)
     destination = models.CharField(max_length=100)  # Colombo, Negombo, etc.
     capacity = models.PositiveIntegerField()
 
@@ -27,3 +27,11 @@ class Order(models.Model):
 
     class Meta:
         db_table = "order"
+
+
+class Bill(models.Model):
+    order = models.OneToOneField(Order, on_delete=models.CASCADE, primary_key=True)
+    total_list_price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    class Meta:
+        db_table = "bill"
