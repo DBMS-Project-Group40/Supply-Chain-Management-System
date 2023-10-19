@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class DelivertostoresConfig(AppConfig):
+class DeliveryToStoresConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'DeliverToStores'
+    name = 'delivery_to_stores'
