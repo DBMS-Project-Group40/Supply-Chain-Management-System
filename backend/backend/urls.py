@@ -22,5 +22,5 @@ urlpatterns = [
     path("__debug__/", include("debug_toolbar.urls")),
     path("api-auth/", include("rest_framework.urls")),
     path("inventory/", include("inventory.urls")),
-    path("DeliveryToShops/", include("DeliveryToShops.urls")),
+    path("delivery-to-shops/", include("delivery_to_shops.urls")),
 ]

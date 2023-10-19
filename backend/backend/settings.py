@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "inventory",
+    "delivery_to_shops",
+    "delivery_to_stores",
     "debug_toolbar",
 ]
 
