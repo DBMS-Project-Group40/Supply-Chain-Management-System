@@ -1,26 +1,29 @@
+# inventory/models.py
+
 from django.db import models
 
 
-# Create your models here.
 class Product(models.Model):
-    ProductID = models.IntegerField(primary_key=True)
     product_name = models.CharField(max_length=255)
+    train_capacity_consumption = models.PositiveIntegerField()
 
     class Meta:
         db_table = "product"
 
 
-class Bill(models.Model):
-    BillID = models.IntegerField(primary_key=True)
-    total_list_price = models.DecimalField(decimal_places=2, max_digits=8)
+class TrainSchedule(models.Model):
+    destination = models.CharField(max_length=100)  # Colombo, Negombo, etc.
+    capacity = models.PositiveIntegerField()
 
     class Meta:
-        db_table = "Bill"
+        db_table = "train_schedule"
 
 
 class Order(models.Model):
-    bill_id = models.IntegerField(primary_key=True)
-    total_list_price = models.DecimalField(decimal_places=2, max_digits=8)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    customer_name = models.CharField(max_length=255)
+    delivery_date = models.DateField()
+    quantity = models.PositiveIntegerField()
 
     class Meta:
-        db_table = "Bills"
+        db_table = "order"
