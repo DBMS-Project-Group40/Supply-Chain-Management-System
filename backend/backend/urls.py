@@ -24,5 +24,9 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api-auth/", include("rest_framework.urls")),
     path("store/", include("store.urls")),
+<<<<<<< HEAD
 >>>>>>> 6f404cc (commit)
+=======
+    path("store/", include("store.urls")),
+>>>>>>> 51aa405 (commit)
 ]
