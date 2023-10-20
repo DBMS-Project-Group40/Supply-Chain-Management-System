@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "delivery_to_shops",
     "delivery_to_stores",
     "debug_toolbar",
+    "corsheaders",
 ]
 
 
@@ -53,7 +54,10 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Enable Debug Toolbar only in development mode
 if DEBUG:

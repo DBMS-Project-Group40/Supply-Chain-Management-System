@@ -44,6 +44,22 @@ def product_detail(request, id):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+@api_view(["GET"])
+def product_count(request):
+    if request.method == "GET":
+        count = Product.objects.all().count()
+        return Response({"count": count}, status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+def num_of_product_categories(request):
+    if request.method == "GET":
+        distinct_categories = (
+            Product.objects.values_list("product_name", flat=True).distinct().count()
+        )
+        return Response({"categories": distinct_categories}, status=status.HTTP_200_OK)
+
+
 @api_view(["GET", "POST"])
 def train_schedule_list(request):
     if request.method == "GET":

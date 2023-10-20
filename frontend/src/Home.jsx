@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { getProductsCount, getCategories } from "./api/InventoryAPI";
 import {
   BsFillArchiveFill,
   BsFillGrid3X3GapFill,
@@ -65,6 +66,17 @@ function Home() {
     },
   ];
 
+  const [rowCount, setRowCount] = useState(0);
+  const [categories, setCategories] = useState(0);
+
+  useEffect(() => {
+    getProductsCount().then((count) => setRowCount(count));
+  }, []);
+
+  useEffect(() => {
+    getCategories().then((categories) => setCategories(categories));
+  }, []);
+
   return (
     <main className="main-container">
       <div className="main-title">
@@ -77,14 +89,14 @@ function Home() {
             <h3>PRODUCTS</h3>
             <BsFillArchiveFill className="card_icon" />
           </div>
-          <h1>300</h1>
+          <h1>{rowCount}</h1>
         </div>
         <div className="card">
           <div className="card-inner">
             <h3>CATEGORIES</h3>
             <BsFillGrid3X3GapFill className="card_icon" />
           </div>
-          <h1>12</h1>
+          <h1>{categories}</h1>
         </div>
         <div className="card">
           <div className="card-inner">

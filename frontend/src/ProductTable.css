@@ -1,0 +1,39 @@
+/* Container to make table scrollable */
+.table-container {
+  overflow-y: auto;
+  max-height: 100vh; /* Adjust as needed */
+}
+
+/* Styles for the product table */
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 18px;
+  text-align: left;
+}
+
+/* Styles for table headers */
+.table-header {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: center;
+  padding: 10px;
+  border-right: 1px solid #ffffff; /* Column lines */
+}
+
+/* Styles for table rows */
+.table-row {
+  border-bottom: 1px solid #dddddd;
+  border-right: 1px solid #dddddd; /* Column lines */
+}
+
+.table-row:hover {
+  background-color: #f2f2f2;
+}
+
+/* General cell styling */
+.table-row td {
+  padding: 12px 15px;
+  border-right: 1px solid #dddddd; /* Column lines */
+}

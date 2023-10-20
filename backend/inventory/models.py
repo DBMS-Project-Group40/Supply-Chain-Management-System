@@ -2,9 +2,10 @@ from django.db import models
 
 
 class Product(models.Model):
-    product_id = models.CharField(max_length=7, primary_key=True)
+    ProductID = models.CharField(max_length=7, primary_key=True)
     product_name = models.CharField(max_length=255)
-    train_capacity_consumption = models.PositiveIntegerField()
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+    stock_count = models.IntegerField()
 
     class Meta:
         db_table = "product"

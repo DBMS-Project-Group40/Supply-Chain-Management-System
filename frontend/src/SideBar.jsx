@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   BsCart3,
   BsGrid1X2Fill,
@@ -27,39 +28,39 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
 
       <ul className="sidebar-list">
         <li className="sidebar-list-item">
-          <a href="">
+          <Link to="/">
             <BsGrid1X2Fill className="icon" /> Dashboard
-          </a>
+          </Link>
         </li>
         <li className="sidebar-list-item">
-          <a href="">
+          <Link to="/products">
             <BsFillArchiveFill className="icon" /> Products
-          </a>
+          </Link>
         </li>
         <li className="sidebar-list-item">
-          <a href="">
+          <Link to="/categories">
             <BsFillGrid3X3GapFill className="icon" /> Categories
-          </a>
+          </Link>
         </li>
         <li className="sidebar-list-item">
-          <a href="">
+          <Link to="/customers">
             <BsPeopleFill className="icon" /> Customers
-          </a>
+          </Link>
         </li>
         <li className="sidebar-list-item">
-          <a href="">
+          <Link to="/inventory">
             <BsListCheck className="icon" /> Inventory
-          </a>
+          </Link>
         </li>
         <li className="sidebar-list-item">
-          <a href="">
+          <Link to="/reports">
             <BsMenuButtonWideFill className="icon" /> Reports
-          </a>
+          </Link>
         </li>
         <li className="sidebar-list-item">
-          <a href="">
-            <BsFillGearFill className="icon" /> Setting
-          </a>
+          <Link to="/settings">
+            <BsFillGearFill className="icon" /> Settings
+          </Link>
         </li>
       </ul>
     </aside>
