@@ -6,6 +6,7 @@ import Sidebar from "./SideBar";
 import Home from "./Home";
 import "./index.css";
 import ProductTable from "./ProductTable";
+import OrderForm from "./OrderForm";
 
 function App() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
@@ -26,6 +27,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<ProductTable />} />
+            <Route path="/orders" element={<OrderForm />} />
           </Routes>
         </div>
       </BrowserRouter>

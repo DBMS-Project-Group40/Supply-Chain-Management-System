@@ -53,6 +53,11 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
           </Link>
         </li>
         <li className="sidebar-list-item">
+          <Link to="/orders">
+            <BsCart3 className="icon" /> Orders
+          </Link>
+        </li>
+        <li className="sidebar-list-item">
           <Link to="/reports">
             <BsMenuButtonWideFill className="icon" /> Reports
           </Link>

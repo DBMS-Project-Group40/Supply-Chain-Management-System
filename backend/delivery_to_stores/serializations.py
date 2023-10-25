@@ -20,12 +20,6 @@ class TruckScheduleSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class TruckRouteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TruckRoute
-        fields = "__all__"
-
-
 class TruckGoodsSerializer(serializers.ModelSerializer):
     class Meta:
         model = TruckGoods

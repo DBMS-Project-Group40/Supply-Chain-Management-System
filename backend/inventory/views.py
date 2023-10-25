@@ -71,7 +71,7 @@ def num_of_product_categories(request):
 def train_schedule_list(request):
     if request.method == "GET":
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM yourapp_trainschedule")
+            cursor.execute("SELECT * FROM trainschedule")
             schedules = dictfetchall(cursor)
         return JsonResponse(schedules, safe=False)
     elif request.method == "POST":
@@ -120,7 +120,7 @@ def train_schedule_detail(request, id):
 def order_list(request):
     if request.method == "GET":
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM yourapp_order")
+            cursor.execute("SELECT * FROM order")
             orders = dictfetchall(cursor)
         return JsonResponse(orders, safe=False)
     elif request.method == "POST":
@@ -137,7 +137,7 @@ def order_list(request):
 def order_detail(request, id):
     with connection.cursor() as cursor:
         if request.method == "GET":
-            cursor.execute("SELECT * FROM yourapp_order WHERE id = %s", [id])
+            cursor.execute("SELECT * FROM order WHERE id = %s", [id])
             order = cursor.fetchone()
             if order:
                 return JsonResponse(
