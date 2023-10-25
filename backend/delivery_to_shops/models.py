@@ -18,7 +18,7 @@ class ShopDelivery(models.Model):
 
 
 class TruckSchedule(models.Model):
-    truck = models.ForeignKey("Truck", on_delete=models.CASCADE)
+    # truck = models.ForeignKey("Truck", on_delete=models.CASCADE)
     departure_time = models.DateTimeField()
     arrival_time = models.DateTimeField()
     slug = models.SlugField()
@@ -33,5 +33,5 @@ class TruckGoods(models.Model):
 
 class TruckRoute(models.Model):
     schedule = models.ForeignKey(TruckSchedule, on_delete=models.CASCADE)
-    store = models.ForeignKey("Store", on_delete=models.CASCADE)
+    store = models.ForeignKey("delivery_to_stores.Store", on_delete=models.CASCADE)
     slug = models.SlugField()
