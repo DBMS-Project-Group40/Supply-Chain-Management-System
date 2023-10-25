@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getProducts } from "./api/InventoryAPI";
+import { getProducts, getRoutes } from "./api/InventoryAPI";
 import "./OrderForm.css";
 
 const OrderForm = ({ onOrderSubmit }) => {
@@ -12,11 +12,7 @@ const OrderForm = ({ onOrderSubmit }) => {
 
   useEffect(() => {
     // Fetch predefined routes from the backend.
-    setRoutes([
-      { id: "route1", name: "Colombo to Kandy" },
-      { id: "route2", name: "Negombo to Galle" },
-      // ... Add more routes as needed
-    ]);
+    getRoutes().then((r) => setRoutes(r));
 
     // Fetch distinct products from the backend.
     getProducts().then((pro) => setProducts(pro));
@@ -38,7 +34,7 @@ const OrderForm = ({ onOrderSubmit }) => {
   return (
     <form onSubmit={handleSubmit} className="order-form">
       <div className="form-group">
-        <label className="form-label">Your email:</label>
+        <label className="form-label">Customer email:</label>
         <input
           type="text"
           value={customerID}
@@ -86,8 +82,8 @@ const OrderForm = ({ onOrderSubmit }) => {
         >
           <option value="">Select a Route</option>
           {routes.map((r) => (
-            <option key={r.id} value={r.id}>
-              {r.name}
+            <option key={r.RouteID} value={r.RouteID}>
+              {r.start_location + " to " + r.end_location}
             </option>
           ))}
         </select>

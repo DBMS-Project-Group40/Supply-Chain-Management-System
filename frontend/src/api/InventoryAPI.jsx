@@ -32,3 +32,14 @@ export const getCategories = () => {
       console.error("There was an error fetching data", error);
     });
 };
+
+export const getRoutes = () => {
+  return axios
+    .get("http://127.0.0.1:8000/delivery-to-shops/truck-routes/")
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error("There was an error fetching data", error);
+    });
+};
