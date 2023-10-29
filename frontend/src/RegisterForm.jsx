@@ -35,7 +35,7 @@ function RegisterForm() {
       try {
         var newUser = {
           name: values.username,
-          email: values.username,
+          email: values.email,
           role: values.role,
           password: values.password,
         };

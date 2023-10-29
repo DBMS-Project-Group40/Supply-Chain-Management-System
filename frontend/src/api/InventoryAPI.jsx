@@ -46,11 +46,27 @@ export const getRoutes = () => {
 
 export const addUser = (userData) => {
   return axios
-    .post("http://127.0.0.1:8000/user/users/", userData)
+    .post("http://127.0.0.1:8000/user/users/all/", userData)
     .then((response) => {
       return response.data;
     })
     .catch((error) => {
       console.error("There was an error adding the user", error);
+      throw error;
+    });
+};
+
+export const getUser = (userEmail) => {
+  return axios
+    .get(`http://127.0.0.1:8000/user/users/by_email/?email=${userEmail}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(
+        `There was an error retrieving the user with email ${userEmail}`,
+        error
+      );
+      throw error;
     });
 };

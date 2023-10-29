@@ -4,6 +4,8 @@ import * as Yup from "yup";
 import "./LoginForm.css";
 import inventoryImage from "./inventory2.png";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { getUser } from "./api/InventoryAPI";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -13,6 +15,8 @@ const LoginSchema = Yup.object().shape({
 });
 
 function LoginForm() {
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -21,7 +25,19 @@ function LoginForm() {
     validationSchema: LoginSchema,
     validateOnMount: true,
     onSubmit: (values) => {
-      console.log(values);
+      getUser(values.email)
+        .then((userData) => {
+          console.log("USER DATA ", userData);
+          if (userData && userData.password === values.password) {
+            navigate("/");
+          } else {
+            alert("Invalid email or password. Please try again.");
+          }
+        })
+        .catch((error) => {
+          console.error("Error retrieving user:", error);
+          alert("An error occurred. Please try again later.");
+        });
     },
   });
 

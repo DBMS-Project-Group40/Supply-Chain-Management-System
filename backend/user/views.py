@@ -29,3 +29,24 @@ def user_list(request):
                 ],
             )
         return HttpResponse(status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+def get_user_by_email(request):
+    email = request.GET.get("email", None)
+
+    if email:
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM users WHERE email = %s", [email])
+            user = dictfetchall(cursor)
+
+            if user:
+                return JsonResponse(user[0], safe=False)
+            else:
+                return JsonResponse(
+                    {"error": "User not found"}, status=status.HTTP_404_NOT_FOUND
+                )
+    else:
+        return JsonResponse(
+            {"error": "Email not provided"}, status=status.HTTP_400_BAD_REQUEST
+        )
