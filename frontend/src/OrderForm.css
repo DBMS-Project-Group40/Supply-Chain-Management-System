@@ -1,51 +1,36 @@
-/* OrderForm.css */
-
-.order-form {
-  width: 99%;
-  margin: 0 auto;
+.login-form {
+  width: 300px;
+  margin: 50px auto;
+  border: 1px solid #ddd;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #1d2634; /* Set the background color here */
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-  color: #fff; /* Set text color to white */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.form-group {
-  margin-bottom: 10px;
+.input-group {
+  margin-bottom: 15px;
 }
 
-.form-label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 5px;
-}
-
-.form-input,
-.form-select {
+input {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  font-size: 16px;
-  background-color: #fff; /* Set background color for input/select */
-  color: #333; /* Set text color for input/select */
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
 }
 
-.form-select {
-  appearance: none;
+.error {
+  color: red;
+  font-size: 12px;
 }
 
-.submit-button {
+button {
+  width: 100%;
+  padding: 10px;
   background-color: #007bff;
-  color: #fff;
   border: none;
-  border-radius: 3px;
-  padding: 10px 20px;
-  font-size: 16px;
+  color: white;
   cursor: pointer;
 }
 
-.submit-button:hover {
+button:hover {
   background-color: #0056b3;
 }
