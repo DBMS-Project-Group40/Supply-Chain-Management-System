@@ -18,6 +18,16 @@ const RegisterSchema = Yup.object().shape({
     .required("Please confirm your password")
     .oneOf([Yup.ref("password"), null], "Passwords must match"),
   role: Yup.string().required("Please select a role"),
+  address: Yup.string().test(
+    "required-for-customer",
+    "Please enter your address",
+    function (value) {
+      if (this.parent.role === "customer") {
+        return !!value;
+      }
+      return true; // For other roles, no address validation
+    }
+  ),
 });
 
 function RegisterForm() {
@@ -28,6 +38,7 @@ function RegisterForm() {
       password: "",
       confirmPassword: "",
       role: "",
+      address: "",
     },
     validationSchema: RegisterSchema,
     validateOnMount: true,
@@ -37,7 +48,8 @@ function RegisterForm() {
           name: values.username,
           email: values.email,
           role: values.role,
-          password: values.password,
+          password_hash: values.password,
+          address: values.address,
         };
         const response = await addUser(newUser);
         console.log("User added successfully:", response);
@@ -111,6 +123,24 @@ function RegisterForm() {
                   <div className="error">{formik.errors.role}</div>
                 )}
               </div>
+
+              {formik.values.role === "customer" && (
+                <div className="input-group">
+                  <label htmlFor="address">Address</label>
+                  <input
+                    type="text"
+                    id="address"
+                    name="address"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.address}
+                  />
+                  {formik.touched.address && formik.errors.address && (
+                    <div className="error">{formik.errors.address}</div>
+                  )}
+                </div>
+              )}
+
               <div className="input-group">
                 <label htmlFor="password">Password</label>
                 <input

@@ -105,6 +105,31 @@ def truck_route_list(request):
         return HttpResponse(status=status.HTTP_200_OK)
 
 
+@api_view(["GET"])
+def get_route_id(request):
+    if request.method == "GET":
+        start_location = request.query_params.get("start_location")
+        end_location = request.query_params.get("end_location")
+
+        if not start_location or not end_location:
+            return JsonResponse(
+                {"error": "Both start_location and end_location are required."},
+                status=400,
+            )
+
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "SELECT RouteID FROM truckroute WHERE start_location = %s AND end_location = %s",
+                [start_location, end_location],
+            )
+            row = cursor.fetchone()
+            if row:
+                route_id = row[0]
+                return JsonResponse({"RouteID": route_id})
+            else:
+                return JsonResponse({"error": "Route not found."}, status=404)
+
+
 @api_view(["GET", "PUT", "DELETE"])
 def truck_route_detail(request, slug):
     route = get_object_or_404(TruckRoute, slug=slug)

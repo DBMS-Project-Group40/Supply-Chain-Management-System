@@ -8,4 +8,5 @@ urlpatterns = [
     path("shop-deliveries/<slug:slug>/", views.shop_delivery_detail),
     path("truck-routes/", views.truck_route_list),
     path("truck-routes/<int:id>/", views.truck_route_detail),
+    path("get-route-id/", views.get_route_id),
 ]

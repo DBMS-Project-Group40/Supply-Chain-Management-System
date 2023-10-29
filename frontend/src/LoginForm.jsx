@@ -27,8 +27,8 @@ function LoginForm() {
     onSubmit: (values) => {
       getUser(values.email)
         .then((userData) => {
-          console.log("USER DATA ", userData);
-          if (userData && userData.password === values.password) {
+          if (userData && userData.password_hash === values.password) {
+            localStorage.setItem("isUserLoggedIn", "true");
             navigate("/");
           } else {
             alert("Invalid email or password. Please try again.");

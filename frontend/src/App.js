@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  Outlet,
+  Navigate,
+} from "react-router-dom";
 import "./App.css";
 import Home from "./Home";
 import "./index.css";
@@ -22,13 +28,25 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<RegisterForm />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/products" element={<ProductTable />} />
-          <Route path="/orders" element={<OrderForm />} />
+          <Route path="/" element={<ProtectedRoutes />}>
+            <Route index element={<Home />} />
+            <Route path="/products" element={<ProductTable />} />
+            <Route path="/orders" element={<OrderForm />} />
+          </Route>
         </Routes>
       </Layout>
     </BrowserRouter>
   );
+}
+
+function ProtectedRoutes() {
+  const isUserLoggedIn = localStorage.getItem("isUserLoggedIn");
+
+  if (isUserLoggedIn !== "true") {
+    return <Navigate to="/login" />;
+  }
+
+  return <Outlet />;
 }
 
 export default App;

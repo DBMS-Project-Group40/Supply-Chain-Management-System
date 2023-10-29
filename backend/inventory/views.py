@@ -127,7 +127,7 @@ def order_list(request):
         with connection.cursor() as cursor:
             # Assuming Order has fields like 'product_id', 'quantity'
             cursor.execute(
-                "INSERT INTO yourapp_order (product_id, quantity) VALUES (%s, %s)",
+                "INSERT INTO order (product_id, quantity) VALUES (%s, %s)",
                 [request.data.get("product_id"), request.data.get("quantity")],
             )
         return HttpResponse(status=status.HTTP_200_OK)

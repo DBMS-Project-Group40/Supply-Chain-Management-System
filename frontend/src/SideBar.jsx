@@ -10,8 +10,17 @@ import {
   BsMenuButtonWideFill,
   BsFillGearFill,
 } from "react-icons/bs";
+import { FiLogOut } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 function Sidebar({ openSidebarToggle, OpenSidebar }) {
+  const navigation = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("isUserLoggedIn");
+    navigation("/login");
+  };
+
   return (
     <aside
       id="sidebar"
@@ -66,6 +75,11 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
           <Link to="/settings">
             <BsFillGearFill className="icon" /> Settings
           </Link>
+        </li>
+        <li className="sidebar-list-item logout-button" onClick={handleLogout}>
+          <span>
+            <FiLogOut className="icon" /> Logout
+          </span>
         </li>
       </ul>
     </aside>

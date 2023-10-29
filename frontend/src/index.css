@@ -213,6 +213,25 @@ body {
     display: inline;
   }
 }
+
+.logout-button .icon,
+.logout-button span {
+  color: red;
+}
+.sidebar-list-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+.logout-button .icon,
+.logout-button span {
+  color: red;
+}
+
+.logout-button:hover .icon,
+.logout-button:hover span {
+  color: red;
+}
+
 /* Small <= 768px */
 
 @media screen and (max-width: 768px) {

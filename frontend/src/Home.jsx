@@ -19,6 +19,7 @@ import {
   LineChart,
   Line,
 } from "recharts";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const data = [
@@ -76,6 +77,13 @@ function Home() {
   useEffect(() => {
     getCategories().then((categories) => setCategories(categories));
   }, []);
+
+  let navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("isUserLoggedIn");
+    navigate("/login");
+  };
 
   return (
     <main className="main-container">
