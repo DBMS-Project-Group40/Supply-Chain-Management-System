@@ -7,6 +7,7 @@ import ProductTable from "./ProductTable";
 import OrderForm from "./OrderForm";
 import Login from "./LoginForm";
 import Layout from "./Layout";
+import RegisterForm from "./RegisterForm";
 
 function App() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
@@ -20,6 +21,7 @@ function App() {
       <Layout OpenSidebar={OpenSidebar}>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<RegisterForm />} />
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<ProductTable />} />
           <Route path="/orders" element={<OrderForm />} />

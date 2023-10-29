@@ -6,11 +6,14 @@ import Sidebar from "./SideBar";
 function Layout({ children, OpenSidebar }) {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";
+  const isRegisterPage = location.pathname === "/register";
 
   return (
-    <div className={!isLoginPage ? `grid-container` : ``}>
-      {!isLoginPage && <Header OpenSidebar={OpenSidebar} />}
-      {!isLoginPage && <Sidebar OpenSidebar={OpenSidebar} />}
+    <div className={!(isLoginPage || isRegisterPage) ? `grid-container` : ``}>
+      {!(isLoginPage || isRegisterPage) && <Header OpenSidebar={OpenSidebar} />}
+      {!(isLoginPage || isRegisterPage) && (
+        <Sidebar OpenSidebar={OpenSidebar} />
+      )}
       {children}
     </div>
   );

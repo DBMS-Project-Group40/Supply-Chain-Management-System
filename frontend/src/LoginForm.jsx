@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import "./LoginForm.css";
 import inventoryImage from "./inventory2.png";
+import { Link } from "react-router-dom";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -26,7 +27,7 @@ function LoginForm() {
 
   return (
     <div className="login-page">
-      <div>
+      <div className="">
         <h1 className="wellcome">WELLCOME BACK!</h1>
         <div className="container">
           <div className="img-container">
@@ -35,7 +36,6 @@ function LoginForm() {
           <form onSubmit={formik.handleSubmit} className="login-form">
             <div className="inside">
               <h1 className="login-text">Login to your Account</h1>
-
               <div className="input-group">
                 <label htmlFor="email">Email</label>
                 <input
@@ -67,9 +67,9 @@ function LoginForm() {
               <button type="submit" className="login-btn">
                 Login
               </button>
-              <button type="button" className="register-button">
+              <Link to="/register" className="register-button">
                 <p className="btn-reg">Don't have an account? Register</p>
-              </button>
+              </Link>
             </div>
           </form>
         </div>

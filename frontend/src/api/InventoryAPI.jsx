@@ -43,3 +43,14 @@ export const getRoutes = () => {
       console.error("There was an error fetching data", error);
     });
 };
+
+export const addUser = (userData) => {
+  return axios
+    .post("http://127.0.0.1:8000/user/users/", userData)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error("There was an error adding the user", error);
+    });
+};
