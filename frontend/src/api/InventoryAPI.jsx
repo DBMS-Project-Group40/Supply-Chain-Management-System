@@ -70,3 +70,15 @@ export const getUser = (userEmail) => {
       throw error;
     });
 };
+
+export const addCustomer = (customerData) => {
+  return axios
+    .post("http://127.0.0.1:8000/customer/customers/all/", customerData)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error("There was an error adding the customer", error);
+      throw error;
+    });
+};

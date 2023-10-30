@@ -14,7 +14,6 @@ const ProductTable = () => {
   return (
     <div className="table-container">
       {" "}
-      {/* Wrap the table with a div */}
       <table className="product-table">
         <thead>
           <tr>

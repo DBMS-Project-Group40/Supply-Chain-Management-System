@@ -25,7 +25,7 @@ def user_list(request):
                     request.data.get("name"),
                     request.data.get("email"),
                     request.data.get("role"),
-                    request.data.get("password_hash"),
+                    request.data.get("password"),
                 ],
             )
         return HttpResponse(status=status.HTTP_200_OK)

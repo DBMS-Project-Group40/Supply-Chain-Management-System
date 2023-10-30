@@ -31,3 +31,25 @@ def truckroute_list(request):
                 ],
             )
         return HttpResponse(status=status.HTTP_200_OK)
+
+
+@api_view(["GET", "POST"])
+def customer_list(request):
+    if request.method == "GET":
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM customer")
+            customers = dictfetchall(cursor)
+        return JsonResponse(customers, safe=False)
+
+    elif request.method == "POST":
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "INSERT INTO customer (CustomerID, points, address, user_id) VALUES (%s, %d, %s, %s, %d)",
+                [
+                    request.data.get("CustomerID"),
+                    request.data.get("points"),
+                    request.data.get("address"),
+                    request.data.get("user_id"),
+                ],
+            )
+        return HttpResponse(status=status.HTTP_201_CREATED)

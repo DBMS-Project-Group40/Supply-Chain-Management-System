@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import "./RegisterForm.css";
 import inventoryImage from "./inventory2.png";
 import { Link } from "react-router-dom";
-import { addUser } from "./api/InventoryAPI";
+import { addCustomer, addUser, getUser } from "./api/InventoryAPI";
 
 const RegisterSchema = Yup.object().shape({
   username: Yup.string().required("Please enter your username"),
@@ -25,7 +25,7 @@ const RegisterSchema = Yup.object().shape({
       if (this.parent.role === "customer") {
         return !!value;
       }
-      return true; // For other roles, no address validation
+      return true;
     }
   ),
 });
@@ -48,10 +48,23 @@ function RegisterForm() {
           name: values.username,
           email: values.email,
           role: values.role,
-          password_hash: values.password,
+          password: values.password,
           address: values.address,
         };
         const response = await addUser(newUser);
+        if (values.role === "customer") {
+          try {
+            const userID = await getUser().then((data) => data.id);
+            const response_c = await addCustomer({
+              points: 0,
+              address: values.address,
+              user_id: userID,
+            });
+          } catch (error) {
+            console.error("Error occurred", error);
+          }
+        }
+
         console.log("User added successfully:", response);
         formik.resetForm();
       } catch (error) {
