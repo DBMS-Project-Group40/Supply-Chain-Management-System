@@ -44,6 +44,19 @@ export const getRoutes = () => {
     });
 };
 
+export const getRoutesByCity = (cityName) => {
+  return axios
+    .get(
+      `http://127.0.0.1:8000/delivery-to-shops/get-route-by-city/?city=${cityName}`
+    )
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error("There was an error fetching data", error);
+    });
+};
+
 export const addUser = (userData) => {
   return axios
     .post("http://127.0.0.1:8000/user/users/all/", userData)

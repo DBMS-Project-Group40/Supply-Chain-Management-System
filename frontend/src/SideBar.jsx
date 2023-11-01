@@ -9,6 +9,7 @@ import {
   BsListCheck,
   BsMenuButtonWideFill,
   BsFillGearFill,
+  BsFileEarmarkText,
 } from "react-icons/bs";
 import { FiLogOut } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
@@ -64,6 +65,11 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
         <li className="sidebar-list-item">
           <Link to="/orders">
             <BsCart3 className="icon" /> Orders
+          </Link>
+        </li>
+        <li className="sidebar-list-item">
+          <Link to="/bills">
+            <BsFileEarmarkText className="icon" /> Bills
           </Link>
         </li>
         <li className="sidebar-list-item">

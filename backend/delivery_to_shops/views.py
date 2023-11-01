@@ -106,6 +106,23 @@ def truck_route_list(request):
 
 
 @api_view(["GET"])
+def truck_route_by_city(request):
+    city = request.GET.get("city", None)
+
+    if not city:
+        return JsonResponse({"error": "City not provided."}, status=400)
+
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "SELECT start_location, end_location FROM truckroute WHERE City = %s",
+            [city],
+        )
+        routes = dictfetchall(cursor)
+
+    return JsonResponse(routes, safe=False)
+
+
+@api_view(["GET"])
 def get_route_id(request):
     if request.method == "GET":
         start_location = request.query_params.get("start_location")

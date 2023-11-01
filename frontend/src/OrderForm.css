@@ -34,3 +34,21 @@ button {
 button:hover {
   background-color: #0056b3;
 }
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group p {
+  border-radius: 6px;
+  margin: 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+}

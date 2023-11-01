@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getProducts, getRoutes } from "./api/InventoryAPI";
+import { getProducts, getRoutes, getRoutesByCity } from "./api/InventoryAPI";
 import "./OrderForm.css";
 
 const OrderForm = ({ onOrderSubmit }) => {
@@ -9,12 +9,20 @@ const OrderForm = ({ onOrderSubmit }) => {
   const [route, setRoute] = useState("");
   const [routes, setRoutes] = useState([]);
   const [products, setProducts] = useState([]);
+  const [cityRoutes, setCityRoutes] = useState([]);
+  const [selectedCity, setSelectedCity] = useState("");
 
   useEffect(() => {
-    // Fetch predefined routes from the backend.
+    if (selectedCity) {
+      getRoutesByCity(selectedCity).then((data) => {
+        setCityRoutes(data);
+      });
+    }
+  }, [selectedCity]);
+
+  useEffect(() => {
     getRoutes().then((r) => setRoutes(r));
 
-    // Fetch distinct products from the backend.
     getProducts().then((pro) => setProducts(pro));
   }, []);
 
@@ -72,22 +80,29 @@ const OrderForm = ({ onOrderSubmit }) => {
         />
       </div>
 
-      <div className="form-group">
-        <label className="form-label">Route:</label>
-        <select
-          value={route}
-          onChange={(e) => setRoute(e.target.value)}
-          required
-          className="form-select"
-        >
-          <option value="">Select a Route</option>
-          {routes.map((r) => (
-            <option key={r.RouteID} value={r.RouteID}>
-              {r.start_location + " to " + r.end_location}
-            </option>
-          ))}
-        </select>
-      </div>
+      <label className="form-label">City:</label>
+      <select
+        value={selectedCity}
+        onChange={(e) => setSelectedCity(e.target.value)}
+        required
+        className="form-select"
+      >
+        <option value="">Select a City</option>
+        {routes.map((route) => (
+          <option key={route.RouteID} value={route.City}>
+            {route.City}
+          </option>
+        ))}
+      </select>
+
+      {selectedCity && (
+        <div className="form-group">
+          <label className="form-label">Route:</label>
+          <p>
+            {cityRoutes[0].start_location} to {cityRoutes[0].end_location}
+          </p>
+        </div>
+      )}
 
       <button type="submit" className="submit-button">
         Place Order

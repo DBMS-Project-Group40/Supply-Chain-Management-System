@@ -2,9 +2,11 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "./RegisterForm.css";
-import inventoryImage from "./inventory2.png";
+import inventoryImage from "./assets/inventory4.png";
 import { Link } from "react-router-dom";
 import { addCustomer, addUser, getUser } from "./api/InventoryAPI";
+import { customAlphabet } from "nanoid";
+import { v4 as uuidv4 } from "uuid";
 
 const RegisterSchema = Yup.object().shape({
   username: Yup.string().required("Please enter your username"),
@@ -31,6 +33,10 @@ const RegisterSchema = Yup.object().shape({
 });
 
 function RegisterForm() {
+  const userID = uuidv4().substr(0, 7);
+  const u_id = userID;
+  const customerID = uuidv4().substr(0, 7);
+
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -44,28 +50,33 @@ function RegisterForm() {
     validateOnMount: true,
     onSubmit: async (values) => {
       try {
-        var newUser = {
+        const newUser = {
+          ID: u_id,
           name: values.username,
           email: values.email,
           role: values.role,
           password: values.password,
-          address: values.address,
         };
         const response = await addUser(newUser);
+
+        console.log("User added successfully:", response);
+
         if (values.role === "customer") {
+          const uid = await getUser(values.email).then((d) => d.ID);
+          console.log("uid ", uid);
           try {
-            const userID = await getUser().then((data) => data.id);
             const response_c = await addCustomer({
+              CustomerID: customerID,
               points: 0,
               address: values.address,
-              user_id: userID,
+              user_id: uid,
             });
+            console.log("Customer added successfully:", response_c);
           } catch (error) {
-            console.error("Error occurred", error);
+            console.error("Error adding the customer:", error);
           }
         }
 
-        console.log("User added successfully:", response);
         formik.resetForm();
       } catch (error) {
         console.error("Error adding the user:", error);
@@ -136,6 +147,23 @@ function RegisterForm() {
                   <div className="error">{formik.errors.role}</div>
                 )}
               </div>
+
+              {formik.values.role === "customer" && (
+                <div className="input-group">
+                  <label htmlFor="city">City</label>
+                  <input
+                    type="text"
+                    id="city"
+                    name="city"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.city}
+                  />
+                  {formik.touched.city && formik.errors.city && (
+                    <div className="error">{formik.errors.city}</div>
+                  )}
+                </div>
+              )}
 
               {formik.values.role === "customer" && (
                 <div className="input-group">

@@ -2,7 +2,7 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "./LoginForm.css";
-import inventoryImage from "./inventory2.png";
+import inventoryImage from "./assets/inventory3.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { getUser } from "./api/InventoryAPI";
@@ -27,7 +27,7 @@ function LoginForm() {
     onSubmit: (values) => {
       getUser(values.email)
         .then((userData) => {
-          if (userData && userData.password_hash === values.password) {
+          if (userData && userData.password === values.password) {
             localStorage.setItem("isUserLoggedIn", "true");
             navigate("/");
           } else {

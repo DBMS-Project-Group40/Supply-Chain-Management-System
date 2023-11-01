@@ -9,4 +9,5 @@ urlpatterns = [
     path("truck-routes/", views.truck_route_list),
     path("truck-routes/<int:id>/", views.truck_route_detail),
     path("get-route-id/", views.get_route_id),
+    path("get-route-by-city/", views.truck_route_by_city),
 ]

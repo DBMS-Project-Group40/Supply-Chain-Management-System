@@ -20,8 +20,9 @@ def user_list(request):
     elif request.method == "POST":
         with connection.cursor() as cursor:
             cursor.execute(
-                "INSERT INTO users (name, email, role, password) VALUES (%s, %s, %s, %s)",
+                "INSERT INTO users (ID, name, email, role, password) VALUES (%s, %s, %s, %s, %s)",
                 [
+                    request.data.get("ID"),
                     request.data.get("name"),
                     request.data.get("email"),
                     request.data.get("role"),

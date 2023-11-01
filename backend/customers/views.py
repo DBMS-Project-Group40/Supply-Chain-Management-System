@@ -44,7 +44,7 @@ def customer_list(request):
     elif request.method == "POST":
         with connection.cursor() as cursor:
             cursor.execute(
-                "INSERT INTO customer (CustomerID, points, address, user_id) VALUES (%s, %d, %s, %s, %d)",
+                "INSERT INTO customer (CustomerID, points, address, user_id) VALUES (%s, %s, %s, %s)",
                 [
                     request.data.get("CustomerID"),
                     request.data.get("points"),
