@@ -114,7 +114,7 @@ def truck_route_by_city(request):
 
     with connection.cursor() as cursor:
         cursor.execute(
-            "SELECT start_location, end_location FROM truckroute WHERE City = %s",
+            "SELECT start_location, end_location, RouteID FROM truckroute WHERE City = %s",
             [city],
         )
         routes = dictfetchall(cursor)

@@ -4,26 +4,28 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 
 
-# Create your views here.
 def dictfetchall(cursor):
-    columns = [col[0] for col in cursor.description]
-    return [dict(zip(columns, row)) for row in cursor.fetchall()]
+    "Returns all rows from a cursor as a dict"
+    desc = cursor.description
+    return [dict(zip([col[0] for col in desc], row)) for row in cursor.fetchall()]
 
 
 @api_view(["GET", "POST"])
 def user_list(request):
     if request.method == "GET":
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM users")
+            cursor.execute("SELECT * FROM User")
             users = dictfetchall(cursor)
         return JsonResponse(users, safe=False)
+
     elif request.method == "POST":
         with connection.cursor() as cursor:
             cursor.execute(
-                "INSERT INTO users (ID, name, email, role, password) VALUES (%s, %s, %s, %s, %s)",
+                "INSERT INTO User (first_name, middle_name, last_name, email, role, password) VALUES (%s, %s, %s, %s, %s, %s)",
                 [
-                    request.data.get("ID"),
-                    request.data.get("name"),
+                    request.data.get("first_name"),
+                    request.data.get("middle_name"),
+                    request.data.get("last_name"),
                     request.data.get("email"),
                     request.data.get("role"),
                     request.data.get("password"),
@@ -38,7 +40,7 @@ def get_user_by_email(request):
 
     if email:
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM users WHERE email = %s", [email])
+            cursor.execute("SELECT * FROM User WHERE email = %s", [email])
             user = dictfetchall(cursor)
 
             if user:

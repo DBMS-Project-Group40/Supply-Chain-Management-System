@@ -14,14 +14,14 @@ def dictfetchall(cursor):
 def truckroute_list(request):
     if request.method == "GET":
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM truckroute")
+            cursor.execute("SELECT * FROM TruckRoute")
             routes = dictfetchall(cursor)
         return JsonResponse(routes, safe=False)
 
     elif request.method == "POST":
         with connection.cursor() as cursor:
             cursor.execute(
-                "INSERT INTO truckroute (RouteID, City, start_location, end_location, Duration) VALUES (%s, %s, %s, %s, %s)",
+                "INSERT INTO TruckRoute (RouteID, City, start_location, end_location, Duration) VALUES (%s, %s, %s, %s, %s)",
                 [
                     request.data.get("RouteID"),
                     request.data.get("City"),
@@ -37,19 +37,19 @@ def truckroute_list(request):
 def customer_list(request):
     if request.method == "GET":
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM customer")
+            cursor.execute("SELECT * FROM Customer")
             customers = dictfetchall(cursor)
         return JsonResponse(customers, safe=False)
 
     elif request.method == "POST":
         with connection.cursor() as cursor:
             cursor.execute(
-                "INSERT INTO customer (CustomerID, points, address, user_id) VALUES (%s, %s, %s, %s)",
+                "INSERT INTO Customer (CustomerID, points, address, city) VALUES (%s, %s, %s, %s)",
                 [
                     request.data.get("CustomerID"),
                     request.data.get("points"),
                     request.data.get("address"),
-                    request.data.get("user_id"),
+                    request.data.get("City"),
                 ],
             )
         return HttpResponse(status=status.HTTP_201_CREATED)

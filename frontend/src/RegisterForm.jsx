@@ -1,18 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "./RegisterForm.css";
 import inventoryImage from "./assets/inventory4.png";
 import { Link } from "react-router-dom";
-import { addCustomer, addUser, getUser } from "./api/InventoryAPI";
+import { addCustomer, addUser, getRoutes, getUser } from "./api/InventoryAPI";
 import { customAlphabet } from "nanoid";
 import { v4 as uuidv4 } from "uuid";
 
 const RegisterSchema = Yup.object().shape({
-  username: Yup.string().required("Please enter your username"),
+  firstName: Yup.string().required("Please enter your first name"),
+  middleName: Yup.string(), // middle name can be optional
+  lastName: Yup.string().required("Please enter your last name"),
   email: Yup.string()
     .email("Invalid email address format")
     .required("Please enter your email address"),
+  city: Yup.string().required("Please select a city"),
   password: Yup.string()
     .required("Please enter your password")
     .min(6, "Password must be at least 6 characters"),
@@ -33,14 +36,15 @@ const RegisterSchema = Yup.object().shape({
 });
 
 function RegisterForm() {
-  const userID = uuidv4().substr(0, 7);
-  const u_id = userID;
-  const customerID = uuidv4().substr(0, 7);
+  const [cities, setCities] = useState([]);
 
   const formik = useFormik({
     initialValues: {
-      username: "",
+      firstName: "",
+      middleName: "",
+      lastName: "",
       email: "",
+      city: "",
       password: "",
       confirmPassword: "",
       role: "",
@@ -49,27 +53,28 @@ function RegisterForm() {
     validationSchema: RegisterSchema,
     validateOnMount: true,
     onSubmit: async (values) => {
+      console.log("Submit");
       try {
+        console.log(values.firstName);
         const newUser = {
-          ID: u_id,
-          name: values.username,
+          first_name: values.firstName,
+          middle_name: values.middleName,
+          last_name: values.lastName,
           email: values.email,
           role: values.role,
           password: values.password,
         };
         const response = await addUser(newUser);
-
         console.log("User added successfully:", response);
 
         if (values.role === "customer") {
           const uid = await getUser(values.email).then((d) => d.ID);
-          console.log("uid ", uid);
           try {
             const response_c = await addCustomer({
-              CustomerID: customerID,
+              CustomerID: uid,
               points: 0,
+              City: values.city,
               address: values.address,
-              user_id: uid,
             });
             console.log("Customer added successfully:", response_c);
           } catch (error) {
@@ -84,6 +89,17 @@ function RegisterForm() {
     },
   });
 
+  useEffect(() => {
+    const fetchCities = async () => {
+      const routes = await getRoutes();
+      console.log(routes);
+      const uniqueCities = [...new Set(routes.map((route) => route.City))];
+      setCities(uniqueCities);
+    };
+    fetchCities();
+    console.log(cities);
+  }, []);
+
   return (
     <div className="register-page">
       <div className="main-con">
@@ -96,21 +112,55 @@ function RegisterForm() {
             <div className="inside">
               <h1 className="login-text">Create an Account</h1>
 
+              {/* First Name */}
               <div className="input-group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="firstName">First Name</label>
                 <input
                   type="text"
-                  id="username"
-                  name="username"
+                  id="firstName"
+                  name="firstName"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
-                  value={formik.values.username}
+                  value={formik.values.firstName}
                 />
-                {formik.touched.username && formik.errors.username && (
-                  <div className="error">{formik.errors.username}</div>
+                {formik.touched.firstName && formik.errors.firstName && (
+                  <div className="error">{formik.errors.firstName}</div>
                 )}
               </div>
 
+              {/* Middle Name */}
+              <div className="input-group">
+                <label htmlFor="middleName">Middle Name</label>
+                <input
+                  type="text"
+                  id="middleName"
+                  name="middleName"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.middleName}
+                />
+                {formik.touched.middleName && formik.errors.middleName && (
+                  <div className="error">{formik.errors.middleName}</div>
+                )}
+              </div>
+
+              {/* Last Name */}
+              <div className="input-group">
+                <label htmlFor="lastName">Last Name</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.lastName}
+                />
+                {formik.touched.lastName && formik.errors.lastName && (
+                  <div className="error">{formik.errors.lastName}</div>
+                )}
+              </div>
+
+              {/* Email */}
               <div className="input-group">
                 <label htmlFor="email">Email</label>
                 <input
@@ -125,6 +175,8 @@ function RegisterForm() {
                   <div className="error">{formik.errors.email}</div>
                 )}
               </div>
+
+              {/* Role */}
               <div className="input-group">
                 <label htmlFor="role">Select a Role</label>
                 <select
@@ -148,23 +200,7 @@ function RegisterForm() {
                 )}
               </div>
 
-              {formik.values.role === "customer" && (
-                <div className="input-group">
-                  <label htmlFor="city">City</label>
-                  <input
-                    type="text"
-                    id="city"
-                    name="city"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.city}
-                  />
-                  {formik.touched.city && formik.errors.city && (
-                    <div className="error">{formik.errors.city}</div>
-                  )}
-                </div>
-              )}
-
+              {/* Address (if role is customer) */}
               {formik.values.role === "customer" && (
                 <div className="input-group">
                   <label htmlFor="address">Address</label>
@@ -181,7 +217,33 @@ function RegisterForm() {
                   )}
                 </div>
               )}
+              {formik.values.role === "customer" && (
+                <div className="input-group">
+                  <label htmlFor="city">City</label>
+                  <select
+                    id="city"
+                    name="city"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.city}
+                  >
+                    <option value="" disabled>
+                      Select a city
+                    </option>
+                    {cities.map((city, index) => (
+                      <option key={index} value={city}>
+                        {city}
+                      </option>
+                    ))}
+                  </select>
 
+                  {formik.touched.city && formik.errors.city && (
+                    <div className="error">{formik.errors.city}</div>
+                  )}
+                </div>
+              )}
+
+              {/* Password */}
               <div className="input-group">
                 <label htmlFor="password">Password</label>
                 <input
@@ -197,6 +259,7 @@ function RegisterForm() {
                 )}
               </div>
 
+              {/* Confirm Password */}
               <div className="input-group">
                 <label htmlFor="confirmPassword">Confirm Password</label>
                 <input
@@ -212,6 +275,7 @@ function RegisterForm() {
                     <div className="error">{formik.errors.confirmPassword}</div>
                   )}
               </div>
+
               <button type="submit" className="login-btn">
                 Register
               </button>

@@ -11,6 +11,20 @@ export const getProducts = () => {
     });
 };
 
+export const getProductById = (productId) => {
+  return axios
+    .get(`http://127.0.0.1:8000/inventory/products/${productId}/`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(
+        `There was an error fetching the product with ID ${productId}`,
+        error
+      );
+    });
+};
+
 export const getProductsCount = () => {
   return axios
     .get("http://127.0.0.1:8000/inventory/products-count/")
@@ -57,6 +71,27 @@ export const getRoutesByCity = (cityName) => {
     });
 };
 
+export const getRouteIDByCity = (cityName) => {
+  return axios
+    .get(
+      `http://127.0.0.1:8000/delivery-to-shops/get-route-by-city/?city=${cityName}`
+    )
+    .then((response) => {
+      if (response.data && response.data[0].RouteID) {
+        return response.data[0].RouteID;
+      } else {
+        throw new Error(`No route found for city: ${cityName}`);
+      }
+    })
+    .catch((error) => {
+      console.error(
+        `There was an error fetching RouteID for city ${cityName}`,
+        error
+      );
+      throw error;
+    });
+};
+
 export const addUser = (userData) => {
   return axios
     .post("http://127.0.0.1:8000/user/users/all/", userData)
@@ -93,5 +128,50 @@ export const addCustomer = (customerData) => {
     .catch((error) => {
       console.error("There was an error adding the customer", error);
       throw error;
+    });
+};
+
+export const addOrder = (orderData) => {
+  return axios
+    .post("http://127.0.0.1:8000/inventory/orders/", orderData)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error("There was an error adding the order", error);
+    });
+};
+
+export const addBill = (billData) => {
+  return axios
+    .post("http://127.0.0.1:8000/inventory/bills/", billData)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error("There was an error adding the bill", error);
+      return Promise.reject(error);
+    });
+};
+
+export const addBillEntry = (billEntryData) => {
+  return axios
+    .post("http://127.0.0.1:8000/inventory/bill-entries/", billEntryData)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error("There was an error adding the bill entry", error);
+    });
+};
+
+export const getBills = () => {
+  return axios
+    .get("http://127.0.0.1:8000/inventory/bills/")
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error("There was an error retrieving the bills", error);
     });
 };
