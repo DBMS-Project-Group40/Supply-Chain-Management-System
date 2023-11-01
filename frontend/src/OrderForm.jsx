@@ -33,10 +33,8 @@ const OrderForm = ({ onOrderSubmit }) => {
   const handlePlaceOrder = async (orderData) => {
     try {
       console.log("email ", formik.values.userId);
-      console.log(products);
 
       const product = await getProductById(orderData.productID);
-      console.log(product);
 
       // // Find the product in the products array
       // const filteredProducts = products.filter(
@@ -66,10 +64,6 @@ const OrderForm = ({ onOrderSubmit }) => {
       const createdBill = await addBill(billData);
 
       // Then create the BillEntry using the BillID from the created Bill
-      console.log("createdBill ", createdBill);
-      console.log("createdBill.BillID ", createdBill.BillID);
-      console.log("orderData.productID ", orderData.productID);
-      console.log("orderData.quantity ", orderData.quantity);
       const billEntryData = {
         BillID: createdBill.BillID,
         ProductID: orderData.productID,
@@ -79,10 +73,6 @@ const OrderForm = ({ onOrderSubmit }) => {
       const createdBillEntry = await addBillEntry(billEntryData);
 
       // Finally, create the Order using the BillID and other required data
-      console.log("createdBill.BillID ", createdBill.BillID);
-      console.log("orderData.customerID ", orderData.customerID);
-      console.log("orderData.route_id ", orderData.route_id);
-      console.log("routeID ", routeID);
 
       const finalOrderData = {
         BillID: createdBill.BillID,
@@ -91,7 +81,7 @@ const OrderForm = ({ onOrderSubmit }) => {
       };
       const createdOrder = await addOrder(finalOrderData);
 
-      onOrderSubmit(createdOrder);
+      // onOrderSubmit(createdOrder);
     } catch (error) {
       console.error("Error while placing the order:", error);
       // Handle error appropriately, e.g., show an error message to the user

@@ -17,6 +17,7 @@ import RegisterForm from "./RegisterForm";
 
 function App() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
 
   const OpenSidebar = () => {
     setOpenSidebarToggle(!openSidebarToggle);
@@ -26,7 +27,10 @@ function App() {
     <BrowserRouter>
       <Layout OpenSidebar={OpenSidebar}>
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={<Login setUserEmail={setUserEmail} />}
+          />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/" element={<ProtectedRoutes />}>
             <Route index element={<Home />} />

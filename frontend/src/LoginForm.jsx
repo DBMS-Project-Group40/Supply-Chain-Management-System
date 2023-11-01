@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "./LoginForm.css";
@@ -14,7 +14,7 @@ const LoginSchema = Yup.object().shape({
   password: Yup.string().required("Please enter your password"),
 });
 
-function LoginForm() {
+function LoginForm({ setUserEmail }) {
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -25,6 +25,7 @@ function LoginForm() {
     validationSchema: LoginSchema,
     validateOnMount: true,
     onSubmit: (values) => {
+      setUserEmail(values.email);
       getUser(values.email)
         .then((userData) => {
           if (userData && userData.password === values.password) {
