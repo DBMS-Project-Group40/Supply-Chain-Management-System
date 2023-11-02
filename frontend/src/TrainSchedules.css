@@ -1,0 +1,27 @@
+.orders-list {
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+}
+
+.orders-list h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.orders-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.orders-list li {
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.orders-list li:hover {
+  background-color: #eee;
+}

@@ -12,6 +12,7 @@ import {
   BsCardChecklist,
   BsFillGearFill,
   BsFileEarmarkText,
+  BsCalendar,
 } from "react-icons/bs";
 import { FiLogOut } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
@@ -82,6 +83,11 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
         <li className="sidebar-list-item">
           <Link to="/driver-issues">
             <BsCardChecklist className="icon" /> Issues
+          </Link>
+        </li>
+        <li className="sidebar-list-item">
+          <Link to="/train-schedule">
+            <BsCalendar className="icon" /> Train Schedule
           </Link>
         </li>
         <li className="sidebar-list-item logout-button" onClick={handleLogout}>

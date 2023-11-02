@@ -76,3 +76,29 @@ input {
 .add-product-btn:hover {
   background-color: #0056b3; /* Darker blue color on hover */
 }
+
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 5px;
+  outline: none;
+  margin-top: 14px;
+}
+
+.btn-submit {
+  background-color: #4caf50;
+  color: white;
+  margin-right: 36px;
+}
+
+.btn-close {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}

@@ -200,3 +200,18 @@ export const getBillById = (billId) => {
       );
     });
 };
+
+export const getStoreAndEndLocation = () => {
+  return axios
+    .get("http://127.0.0.1:8000/delivery-to-stores/get-store-and-end-location/")
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(
+        "There was an error fetching store and end location data",
+        error
+      );
+      throw error;
+    });
+};

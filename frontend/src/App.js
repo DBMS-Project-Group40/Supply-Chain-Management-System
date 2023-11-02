@@ -15,7 +15,8 @@ import Login from "./LoginForm";
 import Layout from "./Layout";
 import RegisterForm from "./RegisterForm";
 import Bill from "./Bill";
-import Issues from "./Issues";
+import TrainScheduleOrder from "./TrainScheduleOrder";
+import TrainSchedules from "./TrainSchedules";
 
 function App() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
@@ -48,7 +49,7 @@ function App() {
             <Route path="/products" element={<ProductTable />} />
             <Route path="/orders" element={<OrderForm />} />
             <Route path="/bills" element={<Bill />} />
-            <Route path="/driver-issues" element={<Issues />} />
+            <Route path="/train-schedule" element={<TrainSchedules />} />
           </Route>
         </Routes>
       </Layout>

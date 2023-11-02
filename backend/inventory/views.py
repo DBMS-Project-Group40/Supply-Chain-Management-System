@@ -207,6 +207,36 @@ def order_detail(request, id):
             return HttpResponse(status=status.HTTP_204_NO_CONTENT)
 
 
+@api_view(["GET"])
+def order_schedule(request, id):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            """
+            SELECT
+                BE.ProductID AS ProductID,
+                B.BillDate AS BillDate,
+                P.product_name AS ProductName,
+                BE.quantity AS Quantity
+            FROM
+                BillEntry AS BE
+            JOIN
+                Bill AS B ON BE.BillID = B.BillID
+            JOIN
+                Product AS P ON BE.ProductID = P.ProductID
+            WHERE
+                BE.id = %s;
+        """,
+            [id],
+        )
+
+        order = dictfetchall(cursor)
+
+        if order:
+            return JsonResponse(order[0])
+        else:
+            return HttpResponse(status=404)
+
+
 @api_view(["GET", "POST"])
 def bill_list(request):
     if request.method == "GET":
