@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   BrowserRouter,
   Route,
@@ -14,10 +14,20 @@ import OrderForm from "./OrderForm";
 import Login from "./LoginForm";
 import Layout from "./Layout";
 import RegisterForm from "./RegisterForm";
+import Bill from "./Bill";
 
 function App() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
   const [userEmail, setUserEmail] = useState("");
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("userEmail");
+    if (storedEmail) {
+      setUserEmail(storedEmail);
+    }
+  }, []);
+
+  console.log(userEmail);
 
   const OpenSidebar = () => {
     setOpenSidebarToggle(!openSidebarToggle);
@@ -36,6 +46,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/products" element={<ProductTable />} />
             <Route path="/orders" element={<OrderForm />} />
+            <Route path="/bills" element={<Bill />} />
           </Route>
         </Routes>
       </Layout>

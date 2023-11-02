@@ -168,6 +168,22 @@ def order_list(request):
         )  # Return 201 for successful creation
 
 
+@api_view(["GET"])
+def get_orders_by_customer(request, customer_id):
+    if request.method == "GET":
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "SELECT * FROM `Order` WHERE `CustomerID` = %s", [customer_id]
+            )
+            orders = dictfetchall(cursor)
+
+        # Check if no orders found
+        if not orders:
+            return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+
+        return JsonResponse(orders, safe=False)
+
+
 @api_view(["GET", "PUT", "DELETE"])
 def order_detail(request, id):
     with connection.cursor() as cursor:
@@ -238,7 +254,7 @@ def bill_list(request):
 def bill_detail(request, id):
     with connection.cursor() as cursor:
         if request.method == "GET":
-            cursor.execute("SELECT * FROM yourapp_bill WHERE id = %s", [id])
+            cursor.execute("SELECT * FROM Bill WHERE BillID = %s", [id])
             bill = cursor.fetchone()
             if bill:
                 return JsonResponse(
@@ -247,13 +263,26 @@ def bill_detail(request, id):
             else:
                 return HttpResponse(status=404)
         elif request.method == "PUT":
+            # Get data from request
+            bill_date = request.data.get("BillDate")
+            total_list_price = request.data.get("total_list_price")
+            discount_percent = request.data.get("discount_percent")
+            total_discounted_price = request.data.get("total_discounted_price")
+
+            # Update the Bill record
             cursor.execute(
-                "UPDATE yourapp_bill SET order_id = %s, amount = %s WHERE id = %s",
-                [request.data.get("order_id"), request.data.get("amount"), id],
+                "UPDATE Bill SET BillDate = %s, total_list_price = %s, discount_percent = %s, total_discounted_price = %s WHERE id = %s",
+                [
+                    bill_date,
+                    total_list_price,
+                    discount_percent,
+                    total_discounted_price,
+                    id,
+                ],
             )
             return HttpResponse(status=status.HTTP_200_OK)
         elif request.method == "DELETE":
-            cursor.execute("DELETE FROM yourapp_bill WHERE id = %s", [id])
+            cursor.execute("DELETE FROM Bill WHERE id = %s", [id])
             return HttpResponse(status=status.HTTP_204_NO_CONTENT)
 
 

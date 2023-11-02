@@ -13,4 +13,8 @@ urlpatterns = [
     path("bills/", views.bill_list),
     path("bills/<int:id>/", views.bill_detail),
     path("bill-entries/", views.add_bill_entry),
+    path(
+        "orders/customer/<int:customer_id>/",
+        views.get_orders_by_customer,
+    ),
 ]

@@ -142,6 +142,17 @@ export const addOrder = (orderData) => {
     });
 };
 
+export const getOrdersByCustomer = (customerID) => {
+  return axios
+    .get(`http://127.0.0.1:8000/inventory/orders/customer/${customerID}/`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error("There was an error retrieving the orders", error);
+    });
+};
+
 export const addBill = (billData) => {
   return axios
     .post("http://127.0.0.1:8000/inventory/bills/", billData)
@@ -173,5 +184,19 @@ export const getBills = () => {
     })
     .catch((error) => {
       console.error("There was an error retrieving the bills", error);
+    });
+};
+
+export const getBillById = (billId) => {
+  return axios
+    .get(`http://127.0.0.1:8000/inventory/bills/${billId}/`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(
+        `There was an error retrieving the bill with ID ${billId}`,
+        error
+      );
     });
 };

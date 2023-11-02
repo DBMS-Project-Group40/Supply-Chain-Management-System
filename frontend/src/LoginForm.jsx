@@ -26,6 +26,7 @@ function LoginForm({ setUserEmail }) {
     validateOnMount: true,
     onSubmit: (values) => {
       setUserEmail(values.email);
+      localStorage.setItem("userEmail", values.email);
       getUser(values.email)
         .then((userData) => {
           if (userData && userData.password === values.password) {
