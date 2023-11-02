@@ -8,6 +8,8 @@ import {
   BsPeopleFill,
   BsListCheck,
   BsMenuButtonWideFill,
+  BsExclamationCircleFill,
+  BsCardChecklist,
   BsFillGearFill,
   BsFileEarmarkText,
 } from "react-icons/bs";
@@ -78,8 +80,8 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
           </Link>
         </li>
         <li className="sidebar-list-item">
-          <Link to="/settings">
-            <BsFillGearFill className="icon" /> Settings
+          <Link to="/driver-issues">
+            <BsCardChecklist className="icon" /> Issues
           </Link>
         </li>
         <li className="sidebar-list-item logout-button" onClick={handleLogout}>

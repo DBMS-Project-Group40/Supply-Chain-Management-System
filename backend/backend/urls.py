@@ -25,4 +25,5 @@ urlpatterns = [
     path("delivery-to-shops/", include("delivery_to_shops.urls")),
     path("customer/", include("customers.urls")),
     path("user/", include("user.urls")),
+    path("employee/", include("driver.urls")),
 ]
