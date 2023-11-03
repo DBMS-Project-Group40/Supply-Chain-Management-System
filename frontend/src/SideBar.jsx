@@ -11,6 +11,7 @@ import {
   BsExclamationCircleFill,
   BsCardChecklist,
   BsFillGearFill,
+  BsPeople,
   BsFileEarmarkText,
   BsCalendar,
 } from "react-icons/bs";
@@ -61,8 +62,8 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
           </Link>
         </li>
         <li className="sidebar-list-item">
-          <Link to="/inventory">
-            <BsListCheck className="icon" /> Inventory
+          <Link to="/managers">
+            <BsPeople className="icon" /> Managers
           </Link>
         </li>
         <li className="sidebar-list-item">

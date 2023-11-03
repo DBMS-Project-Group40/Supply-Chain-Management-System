@@ -215,3 +215,43 @@ export const getStoreAndEndLocation = () => {
       throw error;
     });
 };
+export const get_assigned_route_for_driver = (driverID) => {
+  return axios
+    .get(`http://127.0.0.1:8000/employee/driver-routes/${driverID}/`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(
+        "There was an error fetching the assigned route for the driver",
+        error
+      );
+      throw error;
+    });
+};
+export const getTopProducts = () => {
+  return axios
+    .get("http://127.0.0.1:8000/inventory/top-products/")
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error("There was an error fetching the top products", error);
+      throw error;
+    });
+};
+
+export const getSalesByCityAndRoute = () => {
+  return axios
+    .get("http://127.0.0.1:8000/inventory/sales-by-city-and-route/")
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(
+        "There was an error fetching sales by city and route",
+        error
+      );
+      throw error;
+    });
+};

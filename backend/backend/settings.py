@@ -39,13 +39,14 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "customers",
+    "driver",
     "user",
     "inventory",
     "delivery_to_shops",
     "delivery_to_stores",
     "debug_toolbar",
     "corsheaders",
-    "driver",
+    "django_extensions",
 ]
 
 

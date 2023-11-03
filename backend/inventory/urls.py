@@ -17,4 +17,6 @@ urlpatterns = [
         "orders/customer/<int:customer_id>/",
         views.get_orders_by_customer,
     ),
+    path("top-products/", views.get_top_products, name="get_top_products"),
+    path("sales-by-city-and-route/", views.get_sales_by_city_and_route),
 ]

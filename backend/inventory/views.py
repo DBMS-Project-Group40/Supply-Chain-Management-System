@@ -362,3 +362,51 @@ def add_bill_entry(request):
                     {"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
         return JsonResponse({"success": "Bill entry created successfully."})
+
+
+@api_view(["GET"])
+def get_top_products(request):
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT P.product_name, COUNT(OP.OrderID) as OrderCount
+                FROM OrderedProduct OP
+                JOIN Product P ON OP.ProductID = P.ProductID
+                GROUP BY P.product_name
+                ORDER BY OrderCount DESC
+                LIMIT 10;
+            """
+            )
+            results = dictfetchall(cursor)
+        return JsonResponse(results, safe=False, status=status.HTTP_200_OK)
+    except IntegrityError:
+        return HttpResponse(
+            "Error occurred while querying the database.",
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
+
+
+@api_view(["GET"])
+def get_sales_by_city_and_route(request):
+    try:
+        with connection.cursor() as cursor:
+            query = """
+            SELECT 
+                TR.City,
+                CONCAT(TR.start_location, ' to ', TR.end_location) AS Route,
+                COUNT(O.OrderID) AS SalesCount
+            FROM 
+                `Order` O
+            JOIN 
+                `TruckRoute` TR ON O.RouteID = TR.RouteID
+            GROUP BY 
+                TR.City, Route
+            ORDER BY 
+                TR.City, SalesCount DESC;
+            """
+            cursor.execute(query)
+            results = dictfetchall(cursor)
+        return JsonResponse(results, safe=False, status=status.HTTP_200_OK)
+    except IntegrityError:
+        return HttpResponse(status=status.HTTP_500_INTERNAL_SERVER_ERROR)

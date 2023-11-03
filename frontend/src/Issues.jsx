@@ -1,17 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Issues.css";
+import axios from "axios";
+import { getUser, get_assigned_route_for_driver } from "./api/InventoryAPI";
 
 function Issues() {
-  const dummyData = [
-    {
-      RouteID: 101,
-      City: "New York",
-      start_location: "Central Park",
-      end_location: "Times Square",
-      time_to_leave: "9:00 AM",
-      Duration: "30 mins",
-    },
-  ];
+  console.log("HI HI");
+  const [driverRouteData, setDriverRouteData] = useState([]);
+
+  useEffect(() => {
+    // Step 1: Get userEmail from local storage
+    const userEmail = localStorage.getItem("userEmail");
+
+    // Step 2: Fetch the driver's ID using the userEmail
+    getUser(userEmail)
+      .then((userData) => {
+        const driverID = userData.ID;
+
+        // Step 3: Get the route data using the driver's ID
+        return get_assigned_route_for_driver(driverID);
+      })
+      .then((routeData) => {
+        setDriverRouteData(routeData);
+      })
+      .catch((error) => {
+        console.error("Error fetching data", error);
+      });
+  }, []); // Empty dependency array ensures this effect runs only once when the component mounts
 
   return (
     <div className="table-container">
@@ -27,7 +41,7 @@ function Issues() {
           </tr>
         </thead>
         <tbody>
-          {dummyData.map((route, index) => (
+          {driverRouteData.map((route, index) => (
             <tr key={index}>
               <td>{route.RouteID}</td>
               <td>{route.City}</td>
