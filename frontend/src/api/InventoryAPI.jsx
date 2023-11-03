@@ -255,3 +255,18 @@ export const getSalesByCityAndRoute = () => {
       throw error;
     });
 };
+
+export const getTransportManagers = () => {
+  return axios
+    .get("http://127.0.0.1:8000/manager/transport-managers/")
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(
+        "There was an error fetching the transport managers",
+        error
+      );
+      throw error;
+    });
+};

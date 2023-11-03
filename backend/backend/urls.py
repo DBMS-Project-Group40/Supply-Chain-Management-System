@@ -27,4 +27,5 @@ urlpatterns = [
     path("customer/", include("customers.urls")),
     path("user/", include("user.urls")),
     path("employee/", include("driver.urls")),
+    path("manager/", include("managers.urls")),
 ]

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "delivery_to_stores",
     "debug_toolbar",
     "corsheaders",
+    "managers",
     "django_extensions",
 ]
 
